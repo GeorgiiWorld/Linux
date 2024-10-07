@@ -24,6 +24,7 @@ symbolic_links=$(find $dir_path -type l | wc -l)
 
 top_files=$(find $dir_path -type f -printf '%s %p\n' | sort -nr | head -n 10 | awk -F '.' '{print $0 " " $NF}' | awk '{printf "%d - %s, %skb, %s\n", NR, $2, $1, $3}')
 top_executables=$(find $dir_path -type f -executable -exec -printf '%s %p\n' | sort -nr | head -n 10 | awk '{printf "%d - %s, %skb\n", NR, $2, $1}')
+
 function print_top_exe() {
   exec_list=$(find $1 -type f -executable -exec du -h -d 1 {} + | sort -rh | head -10 | awk 'BEGIN {i=1} { printf "%d %s %s\n", i, $2, $1; i++ }')
   printf "%s\n" "$exec_list" |
